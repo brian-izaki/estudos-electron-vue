@@ -81,8 +81,7 @@ export default defineComponent({
     });
 
     onMounted(async () => {
-      // state.os = await platform();
-      // state.osVersion = await version();
+      console.log(window.apiDesktop);
     });
 
     // TODO: abrir nova janela

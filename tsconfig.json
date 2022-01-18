@@ -15,7 +15,8 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "declaration": true
   },
   "include": [
     "src/**/*.ts",
@@ -23,7 +24,9 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx",
-    "src-electron/background.ts"
+    "src-electron/*.ts",
+    "src-electron/**/*.ts",
+    "src-electron/Global.d.ts"
   ],
   "exclude": ["node_modules"]
 }
