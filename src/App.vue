@@ -1,12 +1,24 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
+  <header-logged />
   <router-view />
 </template>
 
+<script lang="ts">
+import { defineComponent } from "vue";
+import HeaderLogged from "@/components/HeaderLogged/index.vue";
+
+export default defineComponent({
+  components: {
+    "header-logged": HeaderLogged,
+  },
+});
+</script>
+
 <style lang="scss">
+body {
+  margin: 0;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
