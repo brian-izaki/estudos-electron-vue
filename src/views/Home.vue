@@ -81,7 +81,11 @@ export default defineComponent({
     });
 
     onMounted(async () => {
-      console.log(window.apiDesktop);
+      const electronOs = window.apiDesktop.os;
+      state.os = electronOs.type;
+      let regex = /(?<=~).+(?=-)/g;
+      let version = electronOs.version.match(regex);
+      state.osVersion = version?.length ? version[0] : "";
     });
 
     // TODO: abrir nova janela
@@ -92,25 +96,25 @@ export default defineComponent({
     };
 
     const showMsgInTerminal = () => {
-      // invoke("message_in_terminal");
+      window.handleTerminal.print();
     };
 
     const sendMsg2Terminal = () => {
-      // invoke("send_message_to_terminal", { msg: state.textoCustomizado });
+      window.handleTerminal.sendMessage(state.textoCustomizado);
     };
 
     const sendError2Rust = async () => {
-      // try {
-      //   state.errorLoading = true;
-      //   const message: string = await invoke("handle_error", {
-      //     isError: state.isWantError,
-      //   });
-      //   state.errorMsg = message;
-      // } catch (err) {
-      //   state.errorMsg = err as string;
-      // } finally {
-      //   state.errorLoading = false;
-      // }
+      try {
+        state.errorLoading = true;
+        const message: string = await window.myErrors.makeError(
+          state.isWantError
+        );
+        state.errorMsg = message;
+      } catch (err) {
+        state.errorMsg = err as string;
+      } finally {
+        state.errorLoading = false;
+      }
     };
 
     // TODO: criar acesso a arquivos de texto e printar na tela
