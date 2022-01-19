@@ -1,3 +1,10 @@
+//#region interfaces return to Dialog
+export interface ITextFile {
+  path: string;
+  content: string;
+}
+//#endregion
+
 //#region interfaces to global window
 export interface IOsInfo {
   platform: string;
@@ -18,6 +25,11 @@ export interface ITerminal {
 export interface IMyErrors {
   makeError: (isError: boolean) => Promise<string>;
 }
+
+export interface IDialog {
+  showDialog: (options: Electron.OpenDialogOptions) => void;
+  readTextFiles: (options: Electron.OpenDialogOptions) => Promise<ITextFile>;
+}
 //#endregion
 
 //#region declare Global window interface
@@ -26,6 +38,7 @@ declare global {
     apiDesktop: IApiDesktop;
     handleTerminal: ITerminal;
     myErrors: IMyErrors;
+    dialog: IDialog;
   }
 }
 //#endregion

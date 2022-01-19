@@ -58,11 +58,6 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, reactive } from "vue";
-// import { platform, version } from "@tauri-apps/api/os";
-// import { appWindow, WebviewWindow } from "@tauri-apps/api/window";
-// import { invoke } from "@tauri-apps/api/tauri";
-// import { readTextFile } from "@tauri-apps/api/fs";
-// import { open } from "@tauri-apps/api/dialog";
 
 export default defineComponent({
   name: "Home",
@@ -119,27 +114,24 @@ export default defineComponent({
 
     // TODO: criar acesso a arquivos de texto e printar na tela
     const showModal = async () => {
-      // try {
-      //   // pegar texto de um arquivo .txt
-      //   const arquivo = await open({
-      //     filters: [{ name: "txt", extensions: ["txt"] }],
-      //     defaultPath: "../../", // sem ele, vai direto pro src-tauri (deve ser o caminho do build no tauri.conf.json)
-      //   });
-      //   const regex = /(?:.(?!\/))+$/gim;
-      //   if (!Array.isArray(arquivo)) {
-      //     const findArr = regex.exec(arquivo);
-      //     state.modalTitle = findArr?.length ? findArr[0].replace("/", "") : "";
-      //     state.modalContent = await readTextFile(arquivo);
-      //   } else {
-      //     console.log("Não é permitido selecionar mais de um arquivo");
-      //   }
-      // } catch (err) {
-      //   state.modalTitle = "Problemas...";
-      //   state.modalContent =
-      //     "Desculpe... tivemos problemas ao tentar ler ou acessar os arquivos";
-      // } finally {
-      //   state.modalVisible = true;
-      // }
+      try {
+        const texto = await window.dialog.readTextFiles({
+          filters: [{ name: "txt", extensions: ["txt"] }],
+          defaultPath: ".", // sem ele, vai direto pro src-tauri (deve ser o caminho do build no tauri.conf.json)
+        });
+
+        const regex = /(?:.(?!\/))+$/gim;
+        const findArr = regex.exec(texto.path);
+        state.modalTitle = findArr?.length ? findArr[0].replace("/", "") : "";
+        state.modalContent = texto.content;
+      } catch (err) {
+        console.log(err);
+        state.modalTitle = "Problemas...";
+        state.modalContent =
+          "Desculpe... tivemos problemas ao tentar ler ou acessar os arquivos";
+      } finally {
+        state.modalVisible = true;
+      }
     };
 
     return {
