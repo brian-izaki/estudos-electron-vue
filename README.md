@@ -4,9 +4,14 @@
 
 - ter o node.js instalado no computador. [ver documentação](https://www.electronjs.org/pt/docs/latest/tutorial/quick-start#prerequisites)
 - versão do node utilizada `16`
+- usando o nvm:
   ```shell
-  # caso use o nvm, digite no terminal
+  # nvm
   nvm use
+  ```
+  ```shell
+  # nvm-windows no powershell
+  nvm use $(Get-content .nvmrc)
   ```
 - após configuração do ambiente, prossiga com a instalação usando npm
 
@@ -62,7 +67,6 @@
 
 </details>
 
-
 <details>
   <summary>APIs do electron</summary>
 
@@ -79,6 +83,18 @@
 
 </details>
 
+<details>
+  <summary>Build da aplicação</summary>
+
+### **Build**
+
+- ATENÇÃO: o build para determinado SO vai depender do SO que irá realizar o build. ou veja a documenatação de como realizar [build multiplataforma](https://www.electron.build/multi-platform-build)
+- o plugin do vue que foi adicionado utiliza a ferramente `electron-builder` para realizar o build para o desktop
+
+---
+
+</details>
+
 <br />
 
 ## Referências
@@ -89,3 +105,4 @@
   - [typescript pro objeto window](https://www.electronjs.org/docs/latest/tutorial/context-isolation#usage-with-typescript) (para utilizar tipagem dentro da aplicação vue quando tentasse acessar o window)
 - Plugin do vue para electron
   - [configuração webpack](https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/configuration.html#webpack-configuration) (foi para poder alterar o local do arquivo inicial do electron)
+- [build multiplataforma com electron-builder](https://www.electron.build/multi-platform-build)
