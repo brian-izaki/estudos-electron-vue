@@ -1,6 +1,8 @@
 {
   "name": "electron-estudos",
   "version": "0.1.0",
+  "author": "brian-izaki",
+  "description": "Aplicação desktop de estudos com o electron",
   "private": true,
   "scripts": {
     "build": "vue-cli-service electron:build",
@@ -11,7 +13,7 @@
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
-  "main": "src-electron/background.js",
+  "main": "background.js",
   "dependencies": {
     "axios": "^0.25.0",
     "core-js": "^3.6.5",

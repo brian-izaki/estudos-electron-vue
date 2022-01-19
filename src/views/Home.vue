@@ -30,7 +30,7 @@
 
       <div class="card">
         <p>
-          Utiliza manipulação de erro no Rust, o mensagem de retorno vem dele
+          Utiliza manipulação de erro no Node.js, a mensagem de retorno vem dele
         </p>
         <label class="input pointer">
           Ativar erro
