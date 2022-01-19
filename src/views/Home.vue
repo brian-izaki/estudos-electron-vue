@@ -85,9 +85,7 @@ export default defineComponent({
 
     // TODO: abrir nova janela
     const openNewWindow = () => {
-      // const webview = new WebviewWindow("window");
-      // webview.setTitle("Second");
-      // webview.emit("event");
+      window.open("/");
     };
 
     const showMsgInTerminal = () => {
