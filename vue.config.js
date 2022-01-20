@@ -4,6 +4,9 @@ module.exports = {
   },
   pluginOptions: {
     electronBuilder: {
+      buildDependenciesFromSource: true,
+      npmRebuild: false,
+      externals: ["serialport"],
       // Use this to change the entrypoint of your app's main process
       mainProcessFile: "src-electron/background.ts",
       mainProcessWatch: ["src-electron/preload"],

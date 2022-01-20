@@ -36,13 +36,17 @@
           Ativar erro
           <input type="checkbox" v-model="state.isWantError" class="pointer" />
         </label>
-        <button type="button" @click="sendError2Rust()">Enviar</button>
+        <button type="button" @click="sendError2Node()">Enviar</button>
 
         <p>{{ state.errorMsg }}</p>
       </div>
 
       <div @click="showModal" class="card pointer">
         <p>Acesse um arquivo .txt e veja o conteudo em um Modal</p>
+      </div>
+
+      <div @click="showModalSerials" class="card pointer">
+        <p>Veja as portas seriais</p>
       </div>
     </section>
 
@@ -53,10 +57,22 @@
     >
       <pre>{{ state.modalContent }}</pre>
     </Dialog>
+
+    <Dialog
+      header="Portas seriais"
+      v-model:visible="state.modalVisibleSerials"
+      :style="{ width: '50vw' }"
+      :modal="true"
+    >
+      <DataTable :value="state.serialList" responsiveLayout="scroll">
+        <Column field="path" header="Path"></Column>
+      </DataTable>
+    </Dialog>
   </main>
 </template>
 
 <script lang="ts">
+import { PortInfo } from "serialport";
 import { defineComponent, onMounted, reactive } from "vue";
 
 export default defineComponent({
@@ -73,6 +89,9 @@ export default defineComponent({
       modalVisible: false,
       modalTitle: "",
       modalContent: "",
+      modalVisibleSerials: false,
+      modalTitleSerial: "",
+      serialList: [] as PortInfo[],
     });
 
     onMounted(async () => {
@@ -83,7 +102,6 @@ export default defineComponent({
       state.osVersion = version?.length ? version[0] : "";
     });
 
-    // TODO: abrir nova janela
     const openNewWindow = () => {
       window.open("/");
     };
@@ -96,7 +114,7 @@ export default defineComponent({
       window.handleTerminal.sendMessage(state.textoCustomizado);
     };
 
-    const sendError2Rust = async () => {
+    const sendError2Node = async () => {
       try {
         state.errorLoading = true;
         const message: string = await window.myErrors.makeError(
@@ -110,7 +128,6 @@ export default defineComponent({
       }
     };
 
-    // TODO: criar acesso a arquivos de texto e printar na tela
     const showModal = async () => {
       try {
         const texto = await window.dialog.readTextFiles({
@@ -132,13 +149,19 @@ export default defineComponent({
       }
     };
 
+    const showModalSerials = async () => {
+      state.serialList = await window.serial.list();
+      state.modalVisibleSerials = true;
+    };
+
     return {
       state,
       openNewWindow,
       showMsgInTerminal,
       sendMsg2Terminal,
-      sendError2Rust,
+      sendError2Node,
       showModal,
+      showModalSerials,
     };
   },
 });

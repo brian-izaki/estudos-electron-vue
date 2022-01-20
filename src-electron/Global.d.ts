@@ -1,3 +1,5 @@
+import { PortInfo } from "serialport";
+
 //#region interfaces return to Dialog
 export interface ITextFile {
   path: string;
@@ -30,6 +32,10 @@ export interface IDialog {
   showDialog: (options: Electron.OpenDialogOptions) => void;
   readTextFiles: (options: Electron.OpenDialogOptions) => Promise<ITextFile>;
 }
+
+export interface ISerial {
+  list: () => Promise<PortInfo[]>;
+}
 //#endregion
 
 //#region declare Global window interface
@@ -39,6 +45,7 @@ declare global {
     handleTerminal: ITerminal;
     myErrors: IMyErrors;
     dialog: IDialog;
+    serial: ISerial;
   }
 }
 //#endregion

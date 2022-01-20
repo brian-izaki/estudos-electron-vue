@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from "electron";
-import { IApiDesktop, IDialog, IMyErrors, ITerminal } from "./Global";
+import { IApiDesktop, IDialog, IMyErrors, ISerial, ITerminal } from "./Global";
 import { handleErrors } from "./src/handlers/erros";
 import { getOsInfo } from "./src/handlers/os";
 import { printInTerminal, send2Terminal } from "./src/handlers/shell";
@@ -23,3 +23,7 @@ contextBridge.exposeInMainWorld("dialog", {
   readTextFiles: async (options) =>
     ipcRenderer.invoke("dialog-text-file", options).then((res) => res),
 } as IDialog);
+
+contextBridge.exposeInMainWorld("serial", {
+  list: () => ipcRenderer.invoke("serial-list"),
+} as ISerial);
