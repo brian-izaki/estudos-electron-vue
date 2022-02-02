@@ -1,9 +1,9 @@
 <template>
   <main>
     <section class="card-container">
-      <router-link class="card pointer" to="/cart">
+      <router-link class="card pointer" to="/note">
         <div>
-          <p>Realizar compra</p>
+          <p>Criar anotação</p>
         </div>
       </router-link>
 

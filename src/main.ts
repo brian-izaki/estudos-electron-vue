@@ -11,9 +11,12 @@ import Column from "primevue/column";
 import "primeicons/primeicons.css";
 import "primevue/resources/primevue.min.css";
 import "primevue/resources/themes/bootstrap4-light-blue/theme.css";
+import { localeOptionsBR } from "./constants/options";
 
 createApp(App)
-  .use(PrimeVue)
+  .use(PrimeVue, {
+    locale: localeOptionsBR,
+  })
   .component("Dialog", Dialog)
   .component("Button", Button)
   .component("DataTable", DataTable)
